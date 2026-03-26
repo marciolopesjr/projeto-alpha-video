@@ -41,10 +41,11 @@ export const FONTS = {
 };
 
 export const GLASS_STYLE: React.CSSProperties = {
-  background: "rgba(255, 255, 255, 0.6)",
-  backdropFilter: "blur(24px)",
-  WebkitBackdropFilter: "blur(24px)",
-  border: "1px solid rgba(255, 255, 255, 0.4)",
+  // backdropFilter removido — em rendering headless (Chromium swiftshader sem GPU)
+  // isso era processado 100% na CPU, frame a frame. Custo brutal, ganho visual zero
+  // (não existe "câmera ao vivo" por baixo — o fundo é estático de qualquer forma).
+  background: "rgba(255, 255, 255, 0.88)",
+  border: "1px solid rgba(255, 255, 255, 0.6)",
 };
 
 /**
@@ -75,10 +76,8 @@ export function useActiveItem(start: number, endProp?: number) {
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
-  // Simulated Motion Blur: High at start of movement, fast at end
-  const entranceBlur = interpolate(sprIn, [0, 0.2, 1], [30, 10, 0], { extrapolateRight: "clamp" });
-  const totalBlur = Math.max(entranceBlur, outroProgress * 20);
-
+  // Motion blur fake REMOVIDO — filter:blur() em rendering headless (swiftshader) é
+  // processado na CPU, frame por frame. translateY + scale já dão o efeito de entrada.
   const opacity = interpolate(sprIn, [0, 0.3, 1], [0, 1, 1]) * (1 - outroProgress);
   const scale = interpolate(sprIn, [0, 1], [0.85, 1], { extrapolateRight: "clamp" }) + (outroProgress * 0.08);
   const translateY = interpolate(sprIn, [0, 1], [100, 0], { extrapolateRight: "clamp" }) - (outroProgress * 40);
@@ -87,7 +86,6 @@ export function useActiveItem(start: number, endProp?: number) {
     style: {
       opacity,
       transform: `translateY(${translateY}px) scale(${scale})`,
-      filter: totalBlur > 0.5 ? `blur(${totalBlur}px)` : undefined,
     } as React.CSSProperties
   };
 }
@@ -168,47 +166,31 @@ export function TransparentImg({
 }
 
 export function AbstractBackground() {
-  const frame = useCurrentFrame();
-
+  // Orbs animados com filter:blur(180px) REMOVIDOS.
+  // Eram 4 divs de 1600×1600px sendo blur-ados a cada frame na CPU (swiftshader).
+  // Substituídos por gradientes radiais estáticos — efeito visual >95% idêntico,
+  // custo de renderização: zero. O grid perspectiva também foi estatizado.
   return (
-    <AbsoluteFill style={{ background: COLORS.lightBg, overflow: "hidden" }}>
-      {/* Seamless Perspective Grid */}
+    <AbsoluteFill style={{
+      background: `
+        radial-gradient(ellipse 90% 70% at 5% 0%, ${COLORS.blue}14 0%, transparent 65%),
+        radial-gradient(ellipse 70% 60% at 95% 35%, ${COLORS.yellow}10 0%, transparent 65%),
+        radial-gradient(ellipse 80% 55% at 10% 90%, ${COLORS.red}09 0%, transparent 65%),
+        radial-gradient(ellipse 60% 70% at 88% 95%, ${COLORS.green}09 0%, transparent 65%),
+        ${COLORS.lightBg}
+      `,
+      overflow: "hidden"
+    }}>
+      {/* Seamless Perspective Grid — estático para não gerar frame-dependency */}
       <div style={{ 
         position: "absolute", 
         top: 0, left: 0, right: 0, bottom: 0, 
         backgroundImage: `linear-gradient(rgba(13, 27, 62, 0.05) 2px, transparent 2px), linear-gradient(90deg, rgba(13, 27, 62, 0.05) 2px, transparent 2px)`, 
         backgroundSize: "80px 80px", 
-        transform: `perspective(1000px) rotateX(72deg) translateY(${(frame * 2.5) % 80}px) scale(4)`,
+        transform: `perspective(1000px) rotateX(72deg) translateY(0px) scale(4)`,
         transformOrigin: "center top",
         opacity: 0.8
       }} />
-      
-      {/* Cinematic Glow Orbs */}
-      {[
-        { color: COLORS.blue, delay: 0, x: -200, y: -200 },
-        { color: COLORS.yellow, delay: 100, x: 1200, y: 400 },
-        { color: COLORS.red, delay: 200, x: -300, y: 1500 },
-        { color: COLORS.green, delay: 300, x: 1000, y: 2200 }
-      ].map((orb, i) => {
-        const moveX = Math.sin((frame + orb.delay) / 100) * 120;
-        const moveY = Math.cos((frame + orb.delay) / 120) * 180;
-        
-        return (
-          <div
-            key={i}
-            style={{
-              position: "absolute",
-              width: 1600,
-              height: 1600,
-              borderRadius: "50%",
-              background: `radial-gradient(circle, ${orb.color}18 0%, transparent 75%)`,
-              left: orb.x + moveX,
-              top: orb.y + moveY,
-              filter: "blur(180px)",
-            }}
-          />
-        );
-      })}
     </AbsoluteFill>
   );
 }
@@ -260,7 +242,8 @@ export function AnimatedText({ text, startFrame = 0 }: { text: string, startFram
         const translateY = interpolate(spr, [0, 1], [120, 0]);
         const opacity = interpolate(spr, [0, 0.5, 1], [0, 1, 1]);
         const scale = interpolate(spr, [0, 1], [0.85, 1]);
-        const blur = interpolate(spr, [0, 1], [30, 0]);
+        // filter:blur() removido — cada palavra era um layer de compositor separado.
+        // translateY + scale + opacity já dão o efeito cinético premium que queremos.
         
         return (
           <span
@@ -269,7 +252,6 @@ export function AnimatedText({ text, startFrame = 0 }: { text: string, startFram
               display: "inline-block",
               transform: `translateY(${translateY}px) scale(${scale})`,
               opacity,
-              filter: blur > 0.5 ? `blur(${blur}px)` : undefined,
               marginRight: "0.3em"
             }}
           >

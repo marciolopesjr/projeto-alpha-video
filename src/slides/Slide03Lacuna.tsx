@@ -60,135 +60,146 @@ export function Slide03Lacuna() {
       overflow: "hidden", position: "relative",
     }}>
 
-      {/* ── CENA A: O APRENDIZADO VAI MUITO ALÉM ── */}
-      <div style={{
-        position: "absolute", inset: 0, opacity: cAOp,
-        transform: `scale(${dollyScale(0, 0.001)})`,
-        display: "flex", flexDirection: "column",
-        justifyContent: "center", alignItems: "flex-start",
-        padding: "0 80px"
-      }}>
-        <h2 style={{
-          transform: `translateY(${line1Y}px)`,
-          fontSize: 60, fontFamily: FONTS.display, fontWeight: 700,
-          color: COLORS.textGray, textTransform: "uppercase",
-          margin: 0, letterSpacing: 6, lineHeight: 1
+      {/* ── CENA A: O APRENDIZADO VAI MUITO ALÉM (frames 0-130) ── */}
+      {frame < 130 && (
+        <div style={{
+          position: "absolute", inset: 0, opacity: cAOp,
+          transform: `scale(${dollyScale(0, 0.001)})`,
+          display: "flex", flexDirection: "column",
+          justifyContent: "center", alignItems: "flex-start",
+          padding: "0 80px"
         }}>
-          O aprendizado
-        </h2>
-        <h1 style={{
-          transform: `translateY(${line2Y}px)`,
-          fontSize: 180, fontFamily: FONTS.display, fontWeight: 900,
-          color: COLORS.navy, textTransform: "uppercase",
-          margin: 0, letterSpacing: -8, lineHeight: 0.85
-        }}>
-          VAI<br />MUITO<br />ALÉM
-        </h1>
-        <div style={{ width: 100, height: 8, background: COLORS.blue, borderRadius: 4, marginTop: 40 }} />
-      </div>
-
-      {/* ── CENA B: FATORES SOCIOEMOCIONAIS ── */}
-      <div style={{
-        position: "absolute", inset: 0, opacity: cBOp,
-        transform: `scale(${cBScale * dollyScale(120, 0.001)})`, filter: `blur(${cBBlur}px)`,
-        display: "flex", flexDirection: "column",
-        justifyContent: "center", alignItems: "flex-start",
-        padding: "0 80px"
-      }}>
-        <p style={{ margin: 0, fontSize: 50, fontFamily: FONTS.body, fontWeight: 600, color: COLORS.textGray, letterSpacing: 8 }}>
-          São os
-        </p>
-        <h1 style={{
-          margin: 0, fontSize: 145, fontFamily: FONTS.display, fontWeight: 900,
-          color: COLORS.navy, textTransform: "uppercase",
-          letterSpacing: -5, lineHeight: 0.85
-        }}>
-          FATORES<br />SOCIO-<br />EMOCIONAIS
-        </h1>
-      </div>
-
-      {/* ── CENA C: FOCO ── */}
-      <div style={{
-        position: "absolute", inset: 0, opacity: cCOp,
-        display: "flex", flexDirection: "column",
-        justifyContent: "center", alignItems: "center",
-        background: COLORS.navy,
-        transform: `scale(${dollyScale(250, 0.002)})` // Zoom contínuo mais rápido
-      }}>
-        <h1 style={{
-          transform: `scale(${cCScale})`,
-          fontSize: 240, fontFamily: FONTS.display, fontWeight: 900,
-          color: "#FFFFFF", textTransform: "uppercase",
-          margin: 0, letterSpacing: -10, lineHeight: 0.85
-        }}>
-          FOCO
-        </h1>
-        <p style={{ margin: "40px 0 0", fontSize: 36, color: "rgba(255,255,255,0.4)", fontFamily: FONTS.body, letterSpacing: 8 }}>HABILIDADE PREDITORA #1</p>
-      </div>
-
-      {/* ── CENA D: AUTORREGULAÇÃO ── */}
-      <div style={{
-        position: "absolute", inset: 0, opacity: cDOp,
-        display: "flex", flexDirection: "column",
-        justifyContent: "center", alignItems: "center",
-        background: COLORS.navy,
-        transform: `scale(${dollyScale(400, 0.002)})`
-      }}>
-        <h1 style={{
-          transform: `scale(${cDScale})`,
-          fontSize: 110, fontFamily: FONTS.display, fontWeight: 900,
-          color: "#FFFFFF", textTransform: "uppercase",
-          margin: 0, letterSpacing: -3, lineHeight: 0.85, textAlign: "center"
-        }}>
-          AUTO-<br />REGULAÇÃO
-        </h1>
-        <p style={{ margin: "40px 0 0", fontSize: 36, color: "rgba(255,255,255,0.4)", fontFamily: FONTS.body, letterSpacing: 8 }}>HABILIDADE PREDITORA #2</p>
-      </div>
-
-      {/* ── CENA E: PROVA OCDE (Hiper-cinética) ── */}
-      <div style={{
-        position: "absolute", inset: 0, opacity: cEOp,
-        display: "flex", flexDirection: "column",
-        justifyContent: "center", boxSizing: "border-box", padding: "0 80px",
-        transform: `scale(${dollyScale(560, 0.0004)})` // Câmera muito lenta indo pra frente durante todos os 8 secs
-      }}>
-        
-        {/* Background Gigante Rastejante */}
-        <h1 style={{
-          position: "absolute", top: "50%", left: "50%",
-          transform: `translate(-50%, -50%) translateX(${(560 - frame)}px)`,
-          fontSize: 600, fontFamily: FONTS.display, fontWeight: 900,
-          color: COLORS.textGray, opacity: 0.03, margin: 0, whiteSpace: "nowrap"
-        }}>
-          ESTUDOS DA OCDE
-        </h1>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 20, transform: `translateY(${interpolate(lineT, [0, 1], [-60, 0])})`, opacity: lineT }}>
-          <div style={{ width: 6, height: 70, background: COLORS.navy, borderRadius: 3 }} />
-          <div>
-            <p style={{ margin: 0, fontSize: 28, fontWeight: 700, color: COLORS.textGray, letterSpacing: 8 }}>COMPROVADO EM</p>
-            <p style={{ margin: 0, fontSize: 56, fontWeight: 900, color: COLORS.navy, letterSpacing: -1, opacity: Math.min(ocdeNameT * 2, 1) }}>ESTUDOS DA OCDE</p>
-          </div>
+          <h2 style={{
+            transform: `translateY(${line1Y}px)`,
+            fontSize: 60, fontFamily: FONTS.display, fontWeight: 700,
+            color: COLORS.textGray, textTransform: "uppercase",
+            margin: 0, letterSpacing: 6, lineHeight: 1
+          }}>
+            O aprendizado
+          </h2>
+          <h1 style={{
+            transform: `translateY(${line2Y}px)`,
+            fontSize: 180, fontFamily: FONTS.display, fontWeight: 900,
+            color: COLORS.navy, textTransform: "uppercase",
+            margin: 0, letterSpacing: -8, lineHeight: 0.85
+          }}>
+            VAI<br />MUITO<br />ALÉM
+          </h1>
+          <div style={{ width: 100, height: 8, background: COLORS.blue, borderRadius: 4, marginTop: 40 }} />
         </div>
+      )}
 
-        <div style={{ width: interpolate(barT, [0, 1], [0, 100]) + "%", height: 2, background: "#E5E7EB", margin: "60px 0", opacity: barT }} />
-
-        {/* Preditores Reais desliza de lado */}
-        <div style={{ opacity: predT, transform: `translateX(${interpolate(predT, [0, 1], [-100, 0])}px)` }}>
-          <p style={{ margin: 0, fontSize: 50, fontFamily: FONTS.body, fontWeight: 500, color: COLORS.textGray, lineHeight: 1.2 }}>
-            Performance superior diretamente<br/>ligada de forma matemática a:
+      {/* ── CENA B: FATORES SOCIOEMOCIONAIS (frames 110-260) ── */}
+      {frame >= 110 && frame < 260 && (
+        <div style={{
+          position: "absolute", inset: 0, opacity: cBOp,
+          // filter:blur() de entrada REMOVIDO — custo na CPU, efeito dispensável em H.264
+          transform: `scale(${cBScale * dollyScale(120, 0.001)})`,
+          display: "flex", flexDirection: "column",
+          justifyContent: "center", alignItems: "flex-start",
+          padding: "0 80px"
+        }}>
+          <p style={{ margin: 0, fontSize: 50, fontFamily: FONTS.body, fontWeight: 600, color: COLORS.textGray, letterSpacing: 8 }}>
+            São os
           </p>
+          <h1 style={{
+            margin: 0, fontSize: 145, fontFamily: FONTS.display, fontWeight: 900,
+            color: COLORS.navy, textTransform: "uppercase",
+            letterSpacing: -5, lineHeight: 0.85
+          }}>
+            FATORES<br />SOCIO-<br />EMOCIONAIS
+          </h1>
         </div>
+      )}
 
-        {/* Leitura e Matemática entram gigantes e pesadas com muito contraste */}
-        <h2 style={{ margin: "50px 0 0", fontSize: 130, fontFamily: FONTS.display, fontWeight: 900, color: COLORS.navy, letterSpacing: -5, lineHeight: 0.85, opacity: leituT, transform: `translateY(${interpolate(leituT, [0, 1], [100, 0])}px)` }}>
-          LEITURA
-        </h2>
-        <h2 style={{ margin: "20px 0 0", fontSize: 130, fontFamily: FONTS.display, fontWeight: 900, color: COLORS.blue, letterSpacing: -5, lineHeight: 0.85, opacity: matT, transform: `translateY(${interpolate(matT, [0, 1], [100, 0])}px)` }}>
-          &amp; MATEMÁTICA
-        </h2>
+      {/* ── CENA C: FOCO (frames 240-410) ── */}
+      {frame >= 240 && frame < 410 && (
+        <div style={{
+          position: "absolute", inset: 0, opacity: cCOp,
+          display: "flex", flexDirection: "column",
+          justifyContent: "center", alignItems: "center",
+          background: COLORS.navy,
+          transform: `scale(${dollyScale(250, 0.002)})`
+        }}>
+          <h1 style={{
+            transform: `scale(${cCScale})`,
+            fontSize: 240, fontFamily: FONTS.display, fontWeight: 900,
+            color: "#FFFFFF", textTransform: "uppercase",
+            margin: 0, letterSpacing: -10, lineHeight: 0.85
+          }}>
+            FOCO
+          </h1>
+          <p style={{ margin: "40px 0 0", fontSize: 36, color: "rgba(255,255,255,0.4)", fontFamily: FONTS.body, letterSpacing: 8 }}>HABILIDADE PREDITORA #1</p>
+        </div>
+      )}
 
-      </div>
+      {/* ── CENA D: AUTORREGULAÇÃO (frames 390-570) ── */}
+      {frame >= 390 && frame < 570 && (
+        <div style={{
+          position: "absolute", inset: 0, opacity: cDOp,
+          display: "flex", flexDirection: "column",
+          justifyContent: "center", alignItems: "center",
+          background: COLORS.navy,
+          transform: `scale(${dollyScale(400, 0.002)})`
+        }}>
+          <h1 style={{
+            transform: `scale(${cDScale})`,
+            fontSize: 110, fontFamily: FONTS.display, fontWeight: 900,
+            color: "#FFFFFF", textTransform: "uppercase",
+            margin: 0, letterSpacing: -3, lineHeight: 0.85, textAlign: "center"
+          }}>
+            AUTO-<br />REGULAÇÃO
+          </h1>
+          <p style={{ margin: "40px 0 0", fontSize: 36, color: "rgba(255,255,255,0.4)", fontFamily: FONTS.body, letterSpacing: 8 }}>HABILIDADE PREDITORA #2</p>
+        </div>
+      )}
+
+      {/* ── CENA E: PROVA OCDE (frames 550+) ── */}
+      {frame >= 550 && (
+        <div style={{
+          position: "absolute", inset: 0, opacity: cEOp,
+          display: "flex", flexDirection: "column",
+          justifyContent: "center", boxSizing: "border-box", padding: "0 80px",
+          transform: `scale(${dollyScale(560, 0.0004)})`
+        }}>
+          
+          {/* Background Gigante Rastejante */}
+          <h1 style={{
+            position: "absolute", top: "50%", left: "50%",
+            transform: `translate(-50%, -50%) translateX(${(560 - frame)}px)`,
+            fontSize: 600, fontFamily: FONTS.display, fontWeight: 900,
+            color: COLORS.textGray, opacity: 0.03, margin: 0, whiteSpace: "nowrap"
+          }}>
+            ESTUDOS DA OCDE
+          </h1>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 20, transform: `translateY(${interpolate(lineT, [0, 1], [-60, 0])})`, opacity: lineT }}>
+            <div style={{ width: 6, height: 70, background: COLORS.navy, borderRadius: 3 }} />
+            <div>
+              <p style={{ margin: 0, fontSize: 28, fontWeight: 700, color: COLORS.textGray, letterSpacing: 8 }}>COMPROVADO EM</p>
+              <p style={{ margin: 0, fontSize: 56, fontWeight: 900, color: COLORS.navy, letterSpacing: -1, opacity: Math.min(ocdeNameT * 2, 1) }}>ESTUDOS DA OCDE</p>
+            </div>
+          </div>
+
+          <div style={{ width: interpolate(barT, [0, 1], [0, 100]) + "%", height: 2, background: "#E5E7EB", margin: "60px 0", opacity: barT }} />
+
+          {/* Preditores Reais desliza de lado */}
+          <div style={{ opacity: predT, transform: `translateX(${interpolate(predT, [0, 1], [-100, 0])}px)` }}>
+            <p style={{ margin: 0, fontSize: 50, fontFamily: FONTS.body, fontWeight: 500, color: COLORS.textGray, lineHeight: 1.2 }}>
+              Performance superior diretamente<br/>ligada de forma matemática a:
+            </p>
+          </div>
+
+          {/* Leitura e Matemática entram gigantes e pesadas com muito contraste */}
+          <h2 style={{ margin: "50px 0 0", fontSize: 130, fontFamily: FONTS.display, fontWeight: 900, color: COLORS.navy, letterSpacing: -5, lineHeight: 0.85, opacity: leituT, transform: `translateY(${interpolate(leituT, [0, 1], [100, 0])}px)` }}>
+            LEITURA
+          </h2>
+          <h2 style={{ margin: "20px 0 0", fontSize: 130, fontFamily: FONTS.display, fontWeight: 900, color: COLORS.blue, letterSpacing: -5, lineHeight: 0.85, opacity: matT, transform: `translateY(${interpolate(matT, [0, 1], [100, 0])}px)` }}>
+            &amp; MATEMÁTICA
+          </h2>
+
+        </div>
+      )}
 
     </div>
   );
