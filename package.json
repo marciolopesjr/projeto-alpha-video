@@ -1,0 +1,26 @@
+{
+  "name": "projeto-alpha-video",
+  "version": "1.0.0",
+  "description": "Projeto Alpha — Vídeo animado com Remotion",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render src/index.tsx ProjetoAlpha out/video.mp4",
+    "preview": "remotion studio"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.140",
+    "@remotion/transitions": "4.0.140",
+    "lucide-react": "^1.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "remotion": "4.0.140"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
+    "typescript": "^5.0.0"
+  },
+  "remotion": {
+    "entryPoint": "src/index.tsx"
+  }
+}

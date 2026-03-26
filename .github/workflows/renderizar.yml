@@ -1,0 +1,44 @@
+name: Renderizar Vídeo Remotion
+
+on:
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: 'ID da Composição (ex: ProjetoAlpha)'
+        required: true
+        default: 'ProjetoAlpha'
+        type: string
+
+jobs:
+  render:
+    name: Renderizar e Exportar
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Você pode mudar para a versão que usa no projeto
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci # Use 'yarn install' ou 'pnpm install' se não usar npm
+
+      - name: Renderizar vídeo via Action Oficial
+        # Usamos a action oficial porque ela já cuida do Chromium e das libs do Linux (libgbm-dev etc)
+        # Se você rodar 'npx remotion render' direto num ubuntu-latest limpo, ele vai chorar falta de .so
+        uses: remotion-dev/github-action@v1
+        with:
+          id: ${{ github.event.inputs.composition }}
+          entry-point: src/index.tsx
+          output-location: out/video.mp4
+
+      - name: Disponibilizar o vídeo para download
+        uses: actions/upload-artifact@v4
+        with:
+          name: meu-video-renderizado
+          path: out/video.mp4
+          retention-days: 7 # O vídeo ficará disponível para baixar por 7 dias
