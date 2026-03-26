@@ -13,7 +13,7 @@ jobs:
   render:
     name: Renderizar e Exportar
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
@@ -21,24 +21,52 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Você pode mudar para a versão que usa no projeto
+          node-version: '20'
           cache: 'npm'
 
-      - name: Instalar dependências
-        run: npm ci # Use 'yarn install' ou 'pnpm install' se não usar npm
+      - name: Instalar dependências do sistema (libs necessárias para o Chromium)
+        # O Remotion baixa o Chrome Headless Shell automaticamente, mas ele precisa
+        # dessas libs de sistema no Linux. Sem elas, o processo chora e vai embora.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libasound2 \
+            libpango-1.0-0 \
+            libcairo2 \
+            fonts-liberation \
+            libappindicator3-1 \
+            xdg-utils \
+            wget
 
-      - name: Renderizar vídeo via Action Oficial
-        # Usamos a action oficial porque ela já cuida do Chromium e das libs do Linux (libgbm-dev etc)
-        # Se você rodar 'npx remotion render' direto num ubuntu-latest limpo, ele vai chorar falta de .so
-        uses: remotion-dev/github-action@v1
-        with:
-          id: ${{ github.event.inputs.composition }}
-          entry-point: src/index.tsx
-          output-location: out/video.mp4
+      - name: Instalar dependências do projeto
+        run: npm ci
+
+      - name: Renderizar vídeo
+        # O Remotion CLI cuida de baixar e usar o Chrome Headless Shell automaticamente.
+        # Flag --gl=swiftshader é necessária no ambiente headless do GitHub Actions
+        # para evitar o infame erro "FATAL:gpu_data_manager_impl.cc".
+        run: |
+          npx remotion render \
+            src/index.tsx \
+            ${{ github.event.inputs.composition }} \
+            out/video.mp4 \
+            --gl=swiftshader \
+            --log=verbose
 
       - name: Disponibilizar o vídeo para download
         uses: actions/upload-artifact@v4
         with:
-          name: meu-video-renderizado
+          name: video-renderizado-${{ github.event.inputs.composition }}
           path: out/video.mp4
-          retention-days: 7 # O vídeo ficará disponível para baixar por 7 dias
+          retention-days: 7
