@@ -87,12 +87,11 @@ export function Slide11Sistemico({ index = 0 }: { index?: number }) {
               overflow: "hidden"
           }}>
 
-             {/* Background Glow */}
-             <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: 800, height: 800, background: `radial-gradient(circle, ${COLORS.yellow}15 0%, transparent 70%)`, filter: "blur(100px)" }} />
+             {/* Background Glow — simplificado em gradiente radial puro sem blur na CPU */}
+             <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: 800, height: 800, background: `radial-gradient(circle, ${COLORS.yellow}20 0%, transparent 70%)` }} />
 
              <div style={{ 
                 transform: `scale(${spring({ frame: frame - 100, fps: 60, config: { damping: 10, stiffness: 60, mass: 2 } })})`,
-                filter: "drop-shadow(0 0 50px rgba(249,168,37,0.4))",
                 zIndex: 2
              }}>
                 <Trophy size={180} color={COLORS.yellow} strokeWidth={1.5} />

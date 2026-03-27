@@ -219,12 +219,10 @@ export function Slide09ROI({ index = 0 }: { index?: number }) {
             flexDirection: "column",
             gap: 40,
             overflow: "hidden",
-            filter: `blur(${entranceBlur}px)`,
             background: "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.7) 100%)"
           }}>
             <CardShine delay={60} />
             <AnimatedChart startFrame={65} />
-
             <div style={{
               marginTop: 40,
               // Estático na entrada, mas some no final quando o slide inteiro sobe
@@ -269,10 +267,8 @@ export function Slide09ROI({ index = 0 }: { index?: number }) {
             alignItems: "center",
             justifyContent: "center",
             position: "relative",
-            overflow: "hidden",
-            filter: `blur(${entranceBlur}px)`
+            overflow: "hidden"
           }}>
-
             <CardShine delay={60} />
 
             {/* Ondas HUD de Background */}

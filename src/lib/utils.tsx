@@ -129,40 +129,11 @@ export function TransparentImg({
   threshold?: number; 
   style?: React.CSSProperties 
 }) {
-  const [processedSrc, setProcessedSrc] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = src;
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-
-      ctx.drawImage(img, 0, 0);
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i+1];
-        const b = data[i+2];
-        // If the pixel is close to white, make it transparent
-        if (r > threshold && g > threshold && b > threshold) {
-          data[i+3] = 0; 
-        }
-      }
-      ctx.putImageData(imageData, 0, 0);
-      setProcessedSrc(canvas.toDataURL());
-    };
-  }, [src, threshold]);
-
-  if (!processedSrc) return null;
-
-  return <Img src={processedSrc} style={style} />;
+  // ATENÇÃO: Processamento de Canvas on-the-fly para remover fundo removido.
+  // Isso gerava alocações massivas de strings Base64 na memória heap do Chrome,
+  // derrubando o FPS do preview conforme o vídeo avançava.
+  // DICA: Use PNGs exportados com Canal Alpha (transparência real) no Photoshop/Canva.
+  return <Img src={src} style={style} />;
 }
 
 export function AbstractBackground() {
@@ -210,16 +181,24 @@ export function SlideShell({ children, style }: { children: React.ReactNode; sty
   return (
     <div style={{
       width: "100%", height: "100%",
-      display: "flex", flexDirection: "column",
-      padding: "200px 80px 180px",
-      boxSizing: "border-box",
-      fontFamily: FONTS.body,
-      alignItems: "center", justifyContent: "flex-start",
-      textAlign: "center",
       position: "relative",
-      ...style,
+      backgroundColor: COLORS.lightBg,
+      overflow: "hidden"
     }}>
-      {children}
+      <AbstractBackground />
+      <div style={{
+        position: "absolute", inset: 0,
+        width: "100%", height: "100%",
+        display: "flex", flexDirection: "column",
+        padding: "200px 80px 180px",
+        boxSizing: "border-box",
+        fontFamily: FONTS.body,
+        alignItems: "center", justifyContent: "flex-start",
+        textAlign: "center",
+        ...style,
+      }}>
+        {children}
+      </div>
     </div>
   );
 }

@@ -41,7 +41,6 @@ const FinalParticles = () => {
               borderRadius: "50%",
               backgroundColor: i % 2 === 0 ? COLORS.blue : COLORS.navy,
               transform: `translateY(${-frame * speed}px) translateX(${drift}px)`,
-              filter: `blur(${size / 2}px)`,
             }}
           />
         );
@@ -165,7 +164,6 @@ export function Slide12Fechamento() {
               display: "block",
               transform: `translateY(${interpolate(t1, [0, 1], [100, 0])}px) scale(${interpolate(t1, [0, 1], [0.8, 1])})`,
               opacity: t1,
-              filter: `blur(${interpolate(t1, [0, 1], [30, 0])}px)`
             }}>
               Projeto
             </span>
@@ -174,7 +172,6 @@ export function Slide12Fechamento() {
               color: COLORS.blue,
               transform: `translateY(${interpolate(t2, [0, 1], [100, 0])}px) scale(${interpolate(t2, [0, 1], [0.8, 1])})`,
               opacity: t2,
-              filter: `blur(${interpolate(t2, [0, 1], [30, 0])}px)`
             }}>
               Alpha
             </span>

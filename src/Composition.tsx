@@ -41,154 +41,153 @@ const clockEff = clockWipe({ width: 1080, height: 1920 });
 export function ProjetoAlphaVideo() {
   return (
     <AbsoluteFill>
-      <AbstractBackground />
-      {/* Audio Narrador */}
-      <Audio src={staticFile("ElevenLabs_2026-03-25T18_45_53_Fernando Borges _pvc_sp100_s50_sb75_se0_b_m2.mp3")} />
+      {/* Audio Narrador — Renomeado para evitar fuga de URI com espaços */}
+      <Audio src={staticFile("audio_narrador.mp3")} />
       
       <TransitionSeries>
         {/* 01. Capa */}
-        <TransitionSeries.Sequence durationInFrames={475}>
+        <TransitionSeries.Sequence key="s01" durationInFrames={475}>
           <Slide01Capa />
         </TransitionSeries.Sequence>
         
-        <TransitionSeries.Transition presentation={slideR} timing={springT} />
+        <TransitionSeries.Transition key="t01" presentation={slideR} timing={springT} />
 
         {/* 02. Impacto */}
-        <TransitionSeries.Sequence durationInFrames={294}>
+        <TransitionSeries.Sequence key="s02" durationInFrames={294}>
           <Slide02Impacto />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={clockEff} timing={springT} />
+        <TransitionSeries.Transition key="t02" presentation={clockEff} timing={springT} />
 
         {/* 03. Lacuna */}
-        <TransitionSeries.Sequence durationInFrames={1087}>
+        <TransitionSeries.Sequence key="s03" durationInFrames={1087}>
           <Slide03Lacuna />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={flipEff} timing={springT} />
+        <TransitionSeries.Transition key="t03" presentation={flipEff} timing={springT} />
 
         {/* 04. PARADIGMAS */}
-        <TransitionSeries.Sequence durationInFrames={412}>
+        <TransitionSeries.Sequence key="s04-0" durationInFrames={412}>
           <Slide04Paradigma index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideR} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={392}>
+        <TransitionSeries.Transition key="t04-0" presentation={slideR} timing={springT} />
+        <TransitionSeries.Sequence key="s04-1" durationInFrames={392}>
           <Slide04Paradigma index={1} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideL} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={517}>
+        <TransitionSeries.Transition key="t04-1" presentation={slideL} timing={springT} />
+        <TransitionSeries.Sequence key="s04-2" durationInFrames={517}>
           <Slide04Paradigma index={2} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideR} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={443}>
+        <TransitionSeries.Transition key="t04-2" presentation={slideR} timing={springT} />
+        <TransitionSeries.Sequence key="s04-3" durationInFrames={443}>
           <Slide04Paradigma index={3} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={wipeEff} timing={springT} />
+        <TransitionSeries.Transition key="t04-f" presentation={wipeEff} timing={springT} />
 
         {/* 05. PILARES */}
-        <TransitionSeries.Sequence durationInFrames={453}>
+        <TransitionSeries.Sequence key="s05-0" durationInFrames={453}>
           <Slide05Pilares index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fadeEff} timing={fadeT} />
-        <TransitionSeries.Sequence durationInFrames={462}>
+        <TransitionSeries.Transition key="t05-0" presentation={fadeEff} timing={fadeT} />
+        <TransitionSeries.Sequence key="s05-1" durationInFrames={462}>
           <Slide05Pilares index={1} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fadeEff} timing={fadeT} />
-        <TransitionSeries.Sequence durationInFrames={397}>
+        <TransitionSeries.Transition key="t05-1" presentation={fadeEff} timing={fadeT} />
+        <TransitionSeries.Sequence key="s05-2" durationInFrames={397}>
           <Slide05Pilares index={2} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fadeEff} timing={fadeT} />
-        <TransitionSeries.Sequence durationInFrames={444}>
+        <TransitionSeries.Transition key="t05-2" presentation={fadeEff} timing={fadeT} />
+        <TransitionSeries.Sequence key="s05-3" durationInFrames={444}>
           <Slide05Pilares index={3} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={clockEff} timing={springT} />
+        <TransitionSeries.Transition key="t05-f" presentation={clockEff} timing={springT} />
 
         {/* 06. MOTOR */}
-        <TransitionSeries.Sequence durationInFrames={424}>
+        <TransitionSeries.Sequence key="s06-0" durationInFrames={424}>
           <Slide06Motor index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideR} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={415}>
+        <TransitionSeries.Transition key="t06-0" presentation={slideR} timing={springT} />
+        <TransitionSeries.Sequence key="s06-1" durationInFrames={415}>
           <Slide06Motor index={1} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideL} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={384}>
+        <TransitionSeries.Transition key="t06-1" presentation={slideL} timing={springT} />
+        <TransitionSeries.Sequence key="s06-2" durationInFrames={384}>
           <Slide06Motor index={2} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={flipEff} timing={springT} />
+        <TransitionSeries.Transition key="t06-f" presentation={flipEff} timing={springT} />
 
         {/* 07. PAINEL */}
-        <TransitionSeries.Sequence durationInFrames={324}>
+        <TransitionSeries.Sequence key="s07-0" durationInFrames={324}>
           <Slide07Painel index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideB} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={434}>
+        <TransitionSeries.Transition key="t07-0" presentation={slideB} timing={springT} />
+        <TransitionSeries.Sequence key="s07-1" durationInFrames={434}>
           <Slide07Painel index={1} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideT} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={403}>
+        <TransitionSeries.Transition key="t07-1" presentation={slideT} timing={springT} />
+        <TransitionSeries.Sequence key="s07-2" durationInFrames={403}>
           <Slide07Painel index={2} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={wipeEff} timing={springT} />
+        <TransitionSeries.Transition key="t07-f" presentation={wipeEff} timing={springT} />
 
         {/* 08. IACS */}
-        <TransitionSeries.Sequence durationInFrames={444}>
+        <TransitionSeries.Sequence key="s08-0" durationInFrames={444}>
           <Slide08IACS index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={flipEff} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={305}>
+        <TransitionSeries.Transition key="t08-0" presentation={flipEff} timing={springT} />
+        <TransitionSeries.Sequence key="s08-1" durationInFrames={305}>
           <Slide08IACS index={1} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={clockEff} timing={springT} />
+        <TransitionSeries.Transition key="t08-f" presentation={clockEff} timing={springT} />
 
         {/* 09. ROI */}
-        <TransitionSeries.Sequence durationInFrames={435}>
+        <TransitionSeries.Sequence key="s09-0" durationInFrames={435}>
           <Slide09ROI index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fadeEff} timing={fadeT} />
-        <TransitionSeries.Sequence durationInFrames={327}>
+        <TransitionSeries.Transition key="t09-0" presentation={fadeEff} timing={fadeT} />
+        <TransitionSeries.Sequence key="s09-1" durationInFrames={327}>
           <Slide09ROI index={1} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={flipEff} timing={springT} />
+        <TransitionSeries.Transition key="t09-f" presentation={flipEff} timing={springT} />
 
         {/* 10. CICLO */}
-        <TransitionSeries.Sequence durationInFrames={438}>
+        <TransitionSeries.Sequence key="s10-0" durationInFrames={438}>
           <Slide10Ciclo index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={clockEff} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={381}>
+        <TransitionSeries.Transition key="t10-0" presentation={clockEff} timing={springT} />
+        <TransitionSeries.Sequence key="s10-1" durationInFrames={381}>
           <Slide10Ciclo index={1} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={clockEff} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={427}>
-          <Slide10Ciclo index={2} />
+        <TransitionSeries.Transition key="t10-1" presentation={clockEff} timing={springT} />
+        <TransitionSeries.Sequence key="s10-2" durationInFrames={427}>
+          <Slide10Ciclo index={1} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={clockEff} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={401}>
+        <TransitionSeries.Transition key="t10-2" presentation={clockEff} timing={springT} />
+        <TransitionSeries.Sequence key="s10-3" durationInFrames={401}>
           <Slide10Ciclo index={3} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={wipeEff} timing={springT} />
+        <TransitionSeries.Transition key="t10-f" presentation={wipeEff} timing={springT} />
 
         {/* 11. SISTEMICO */}
-        <TransitionSeries.Sequence durationInFrames={375}>
+        <TransitionSeries.Sequence key="s11-0" durationInFrames={375}>
           <Slide11Sistemico index={0} />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={slideT} timing={springT} />
-        <TransitionSeries.Sequence durationInFrames={403}>
+        <TransitionSeries.Transition key="t11-0" presentation={slideT} timing={springT} />
+        <TransitionSeries.Sequence key="s11-1" durationInFrames={403}>
           <Slide11Sistemico index={1} />
         </TransitionSeries.Sequence>
 
-        <TransitionSeries.Transition presentation={fadeEff} timing={fadeT} />
+        <TransitionSeries.Transition key="t12-t" presentation={fadeEff} timing={fadeT} />
 
         {/* 12. FECHAMENTO */}
-        <TransitionSeries.Sequence durationInFrames={800}>
+        <TransitionSeries.Sequence key="s12" durationInFrames={800}>
           <Slide12Fechamento />
         </TransitionSeries.Sequence>
       </TransitionSeries>
